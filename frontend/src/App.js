@@ -13,7 +13,7 @@ function TodoList() {
 
     const handleAddTodo = () => {
         if (inputValue.trim() !== '') {
-            setTodos([...todos, { id: Date.now(), text: inputValue, completed: false }]);
+            setTodos([...todos, { id: Date.now(), text: inputValue, completed: false, deleted: false }]);
             setInputValue('');
         }
     };
@@ -27,7 +27,15 @@ function TodoList() {
     };
 
     const handleDeleteTodo = (id) => {
-        setTodos(todos.filter((todo) => todo.id !== id));
+        setTodos(
+            todos.map((todo) =>
+                todo.id === id ? { ...todo, deleted: true } : todo
+            )
+        );
+
+        setTimeout(() => {
+            setTodos(todos.filter((todo) => todo.id !== id && !todo.deleted));
+        }, 2000);
     };
 
     const handleEditTodo = (id) => {
@@ -86,7 +94,7 @@ function TodoList() {
                                     className="toggle-checkbox"
                                 />
                                 <span
-                                    className={todo.completed ? 'completed' : ''}
+                                    className={`${todo.completed || todo.deleted ? 'deleted' : ''}`}
                                 >
                                     {todo.text}
                                 </span>

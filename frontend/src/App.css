@@ -61,6 +61,13 @@
   cursor: pointer;
   margin-left: 5px;
 }
+.deleted {
+  text-decoration: line-through;
+}
+
+
+
+
 .todo-item {
   margin-bottom: 10px;
   font-size: 30px;
