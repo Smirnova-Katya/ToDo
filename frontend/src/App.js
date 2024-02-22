@@ -54,6 +54,13 @@ function TodoList() {
         setEditText('');
     };
 
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Предотвращаем перезагрузку страницы при нажатии Enter
+            handleAddTodo(); // Вызываем функцию добавления todo
+        }
+    };
+
     return (
         <div className="container">
             <h1>To-Do List</h1>
@@ -62,6 +69,7 @@ function TodoList() {
                     type="text"
                     value={inputValue}
                     onChange={handleInputChange}
+                    onKeyDown={handleKeyDown} // Добавляем обработчик события onKeyDown
                     placeholder="Enter your task"
                     className="input-task"
                 />
@@ -100,13 +108,14 @@ function TodoList() {
                                 >
                                     {todo.text}
                                 </span>
+                                <link rel="stylesheet"
+                                      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
                                 <button onClick={() => handleEditTodo(todo.id)}>
-
-                                    Edit
+                                    <i className="fa fa-pencil"></i> {"Edit"}
                                 </button>
 
-                                <button
-                                    onClick={() => handleDeleteTodo(todo.id)}
+                                <button   onClick={() => handleDeleteTodo(todo.id)}
+
                                     className="delete-button"
                                 >
                                     Delete
