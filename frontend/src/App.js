@@ -13,7 +13,7 @@ function TodoList() {
 
     const handleAddTodo = () => {
         if (inputValue.trim() !== '') {
-            setTodos([...todos, { id: Date.now(), text: inputValue, completed: false }]);
+            setTodos([...todos, { id: Date.now(), text: inputValue, completed: false, deleted: false }]);
             setInputValue('');
         }
     };
@@ -27,7 +27,15 @@ function TodoList() {
     };
 
     const handleDeleteTodo = (id) => {
-        setTodos(todos.filter((todo) => todo.id !== id));
+        setTodos(
+            todos.map((todo) =>
+                todo.id === id ? { ...todo, deleted: true } : todo
+            )
+        );
+
+        setTimeout(() => {
+            setTodos(todos.filter((todo) => todo.id !== id && !todo.deleted));
+        }, 2000);
     };
 
     const handleEditTodo = (id) => {
@@ -46,6 +54,13 @@ function TodoList() {
         setEditText('');
     };
 
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Предотвращаем перезагрузку страницы при нажатии Enter
+            handleAddTodo(); // Вызываем функцию добавления todo
+        }
+    };
+
     return (
         <div className="container">
             <h1>To-Do List</h1>
@@ -54,6 +69,7 @@ function TodoList() {
                     type="text"
                     value={inputValue}
                     onChange={handleInputChange}
+                    onKeyDown={handleKeyDown} // Добавляем обработчик события onKeyDown
                     placeholder="Enter your task"
                     className="input-task"
                 />
@@ -75,7 +91,9 @@ function TodoList() {
                                     onChange={(e) => setEditText(e.target.value)}
                                     className="edit-input"
                                 />
-                                <button onClick={handleSaveEdit}>Save</button>
+                                <button onClick={handleSaveEdit}>
+                                    <i className="fa fa-pencil"></i> {/* Иконка карандаша */}
+                                </button>
                             </>
                         ) : (
                             <>
@@ -86,13 +104,18 @@ function TodoList() {
                                     className="toggle-checkbox"
                                 />
                                 <span
-                                    className={todo.completed ? 'completed' : ''}
+                                    className={`${todo.completed || todo.deleted ? 'deleted' : ''}`}
                                 >
                                     {todo.text}
                                 </span>
-                                <button onClick={() => handleEditTodo(todo.id)}>Edit</button>
-                                <button
-                                    onClick={() => handleDeleteTodo(todo.id)}
+                                <link rel="stylesheet"
+                                      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+                                <button onClick={() => handleEditTodo(todo.id)}>
+                                    <i className="fa fa-pencil"></i> {"Edit"}
+                                </button>
+
+                                <button   onClick={() => handleDeleteTodo(todo.id)}
+
                                     className="delete-button"
                                 >
                                     Delete
