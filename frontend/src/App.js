@@ -83,7 +83,9 @@ function TodoList() {
                                     onChange={(e) => setEditText(e.target.value)}
                                     className="edit-input"
                                 />
-                                <button onClick={handleSaveEdit}>Save</button>
+                                <button onClick={handleSaveEdit}>
+                                    <i className="fa fa-pencil"></i> {/* Иконка карандаша */}
+                                </button>
                             </>
                         ) : (
                             <>
@@ -98,7 +100,11 @@ function TodoList() {
                                 >
                                     {todo.text}
                                 </span>
-                                <button onClick={() => handleEditTodo(todo.id)}>Edit</button>
+                                <button onClick={() => handleEditTodo(todo.id)}>
+
+                                    Edit
+                                </button>
+
                                 <button
                                     onClick={() => handleDeleteTodo(todo.id)}
                                     className="delete-button"

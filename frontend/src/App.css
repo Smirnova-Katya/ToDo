@@ -11,6 +11,7 @@
   background-color: #f8f9fa; /* Цвет фона контейнера */
   border-radius: 10px; /* Скругление углов контейнера */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Тень контейнера */
+  transition: background-color 0.3s ease; /* Анимация изменения цвета фона */
 }
 
 .add-task-container {
@@ -32,6 +33,12 @@
   background-color: #007bff;
   color: #fff;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Анимация изменения цвета фона и трансформации */
+}
+
+.add-task-button:hover {
+  background-color: #0056b3; /* Изменение цвета фона при наведении */
+  transform: scale(1.1); /* Увеличение размера кнопки при наведении */
 }
 
 .todo-list {
@@ -60,15 +67,42 @@
   color: #fff;
   cursor: pointer;
   margin-left: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Анимация изменения цвета фона и трансформации */
 }
+
+.delete-button:hover {
+  background-color: #c82333; /* Изменение цвета фона при наведении */
+  transform: scale(1.1); /* Увеличение размера кнопки при наведении */
+}
+
 .deleted {
   text-decoration: line-through;
+  color: red;
 }
-
-
-
 
 .todo-item {
   margin-bottom: 10px;
   font-size: 30px;
+}
+
+.todo-item {
+  position: relative; /* Чтобы можно было позиционировать линию относительно этого элемента */
+}
+
+.todo-item::after {
+  content: ''; /* Добавляем пустое содержимое для создания псевдоэлемента */
+  position: absolute; /* Абсолютное позиционирование */
+  bottom: 0; /* Позиционируем линию внизу */
+  left: 0; /* Располагаем линию слева */
+  width: 100%; /* Ширина линии равна ширине родительского элемента */
+  height: 1px; /* Толщина линии */
+  background-color: black; /* Цвет линии */
+}
+
+body {
+  background: linear-gradient(to right, #ff7e5f, #feb47b); /* Градиент от красного к оранжевому */
+}
+
+.container {
+  background-color: #dddddd; /* Оттенок серого, который сочетается с красным и оранжевым */
 }
